@@ -6,11 +6,11 @@ using namespace std;
 
 #include "arellepanelview.h"
 
-class CArelleToolHander
+class CArelleToolHandler
 {
 public:
-    CArelleToolHander();
-    ~CArelleToolHander();
+    CArelleToolHandler();
+    ~CArelleToolHandler();
 
    static FS_LPSTR              Tool_GetName(FS_LPVOID clientData);
    static FS_LPCWSTR            Tool_GetTitle(FS_LPVOID clientData);

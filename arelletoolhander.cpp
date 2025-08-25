@@ -2,9 +2,9 @@
 #include "arelletoolhander.h"
 #include "resource.h"
 
-FS_DIBitmap      CArelleToolHander::m_pPanelIcon = NULL;
+FS_DIBitmap      CArelleToolHandler::m_pPanelIcon = NULL;
 
-std::vector<CArellePanelView*> CArelleToolHander::m_PanelViewArray;
+std::vector<CArellePanelView*> CArelleToolHandler::m_PanelViewArray;
 
 /*Get the icon from file.*/
 FS_DIBitmap GetBmpFromRes(UINT uID)
@@ -43,27 +43,27 @@ FS_DIBitmap GetBmpFromRes(UINT uID)
     return pBmp;
 }
 
-CArelleToolHander::CArelleToolHander()
+CArelleToolHandler::CArelleToolHandler()
 {
 }
 
-CArelleToolHander::~CArelleToolHander()
+CArelleToolHandler::~CArelleToolHandler()
 {
     if(m_pPanelIcon)
         FSDIBitmapDestroy(m_pPanelIcon);
 }
 
-FS_LPSTR CArelleToolHander::Tool_GetName(FS_LPVOID clientData)
+FS_LPSTR CArelleToolHandler::Tool_GetName(FS_LPVOID clientData)
 {
     return "Arelle_TestName";
 }
 
-FS_LPCWSTR CArelleToolHander::Tool_GetTitle(FS_LPVOID clientData)
+FS_LPCWSTR CArelleToolHandler::Tool_GetTitle(FS_LPVOID clientData)
 {
     return L"Arelle_TestTitle";
 }
 
-void CArelleToolHander::Tool_InitNewView(FS_LPVOID clientData, FPD_Document pDocument, FS_HWND hParent)
+void CArelleToolHandler::Tool_InitNewView(FS_LPVOID clientData, FPD_Document pDocument, FS_HWND hParent)
 {
     CArellePanelView* pView = new CArellePanelView(pDocument);
     if (pView)
@@ -74,7 +74,7 @@ void CArelleToolHander::Tool_InitNewView(FS_LPVOID clientData, FPD_Document pDoc
     return;
 }
 
-void CArelleToolHander::Tool_CloseView(FS_LPVOID clientData, FS_HWND window, FPD_Document doc)
+void CArelleToolHandler::Tool_CloseView(FS_LPVOID clientData, FS_HWND window, FPD_Document doc)
 {
     int nCount = m_PanelViewArray.size();
     for (int i=0; i<nCount; i++)
@@ -88,17 +88,17 @@ void CArelleToolHander::Tool_CloseView(FS_LPVOID clientData, FS_HWND window, FPD
     }
 }
 
-void CArelleToolHander::Tool_SetActiveView(FS_LPVOID clientData, FPD_Document doc, FS_HWND window)
+void CArelleToolHandler::Tool_SetActiveView(FS_LPVOID clientData, FPD_Document doc, FS_HWND window)
 {
 
 }
 
-void CArelleToolHander::Tool_GetButtonTip(FS_LPVOID clientData, FS_WideString *csOutTip)
+void CArelleToolHandler::Tool_GetButtonTip(FS_LPVOID clientData, FS_WideString *csOutTip)
 {
     FSWideStringFill(*csOutTip, L"Arelle_TestButtonTip");
 }
 
-FS_DIBitmap CArelleToolHander::Tool_PanelViewGetButtonIconUnion(FS_LPVOID clientData, FS_APPMODE mode, FS_BTNSTATE state, FS_ICONSIZE size)
+FS_DIBitmap CArelleToolHandler::Tool_PanelViewGetButtonIconUnion(FS_LPVOID clientData, FS_APPMODE mode, FS_BTNSTATE state, FS_ICONSIZE size)
 {
     if (m_pPanelIcon == NULL)
     {
@@ -108,7 +108,7 @@ FS_DIBitmap CArelleToolHander::Tool_PanelViewGetButtonIconUnion(FS_LPVOID client
     return m_pPanelIcon;
 }
 
-FS_HWND CArelleToolHander::Tool_PanelViewOnGetHwnd(FS_LPVOID clientData, FPD_Document doc, FS_HWND parent)
+FS_HWND CArelleToolHandler::Tool_PanelViewOnGetHwnd(FS_LPVOID clientData, FPD_Document doc, FS_HWND parent)
 {
     CArellePanelView* pView = Tool_GetView(doc, parent);
     if(pView)
@@ -116,7 +116,7 @@ FS_HWND CArelleToolHander::Tool_PanelViewOnGetHwnd(FS_LPVOID clientData, FPD_Doc
     return NULL;
 }
 
-FS_HWND CArelleToolHander::Tool_PanelViewOnPanelActive(FS_LPVOID clientData, FPD_Document doc, FS_HWND parent)
+FS_HWND CArelleToolHandler::Tool_PanelViewOnPanelActive(FS_LPVOID clientData, FPD_Document doc, FS_HWND parent)
 {
     CArellePanelView* pView = Tool_GetView(doc, parent);
     if(pView)
@@ -127,7 +127,7 @@ FS_HWND CArelleToolHander::Tool_PanelViewOnPanelActive(FS_LPVOID clientData, FPD
     return NULL;
 }
 
-CArellePanelView *CArelleToolHander::Tool_GetView(FPD_Document pDocument, FS_HWND hParent)
+CArellePanelView *CArelleToolHandler::Tool_GetView(FPD_Document pDocument, FS_HWND hParent)
 {
     CArellePanelView* pView = NULL;
     int count = m_PanelViewArray.size();

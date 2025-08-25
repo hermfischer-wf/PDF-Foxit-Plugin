@@ -15,7 +15,7 @@ END_MESSAGE_MAP()
 CMyTreeCtrl::CMyTreeCtrl(FR_Document pDoc)
 {
 	m_pDoc = pDoc;
-	m_pBookmarkOperation = NULL;
+	m_pArelleOperation = NULL;
 
 	m_mapItemsObject.clear();
 	m_mapItemsBookmark.clear();
@@ -23,12 +23,12 @@ CMyTreeCtrl::CMyTreeCtrl(FR_Document pDoc)
 
 CMyTreeCtrl::~CMyTreeCtrl()
 {
-	if (m_pBookmarkOperation != NULL)
+	if (m_pArelleOperation != NULL)
 	{
 		std::map<HTREEITEM, FPD_Bookmark>::iterator it = m_mapItemsBookmark.begin();
 		while (it != m_mapItemsBookmark.end())
 		{
-			m_pBookmarkOperation->DestroyBookmark((*it).second);
+			m_pArelleOperation->DestroyBookmark((*it).second);
 			++it;
 		}
 	}
@@ -39,12 +39,12 @@ void CMyTreeCtrl::AddChildBookmark()
 	HTREEITEM hItem = this->GetSelectedItem();
 	if (hItem == NULL)
 	{
-		m_pBookmarkOperation->AddChildBookmark(nullptr, "Untitled");
+		m_pArelleOperation->AddChildBookmark(nullptr, "Untitled");
 	}
 	else
 	{
 		FPD_Bookmark pBookmark = GetCorrespondBookmark(hItem);
-		m_pBookmarkOperation->AddChildBookmark(pBookmark, "Untitled");
+		m_pArelleOperation->AddChildBookmark(pBookmark, "Untitled");
 	}
 	this->Invalidate();
 }
@@ -59,7 +59,7 @@ void CMyTreeCtrl::AddSiblingBookmark()
 	else
 	{
 		FPD_Bookmark pBookmark = GetCorrespondBookmark(hItem);
-		m_pBookmarkOperation->AddSiblingBookmark(pBookmark, "Untitled");
+		m_pArelleOperation->AddSiblingBookmark(pBookmark, "Untitled");
 	}
 	this->Invalidate();
 }
@@ -74,7 +74,7 @@ void CMyTreeCtrl::DeleteBookmark()
 	else
 	{
 		FPD_Bookmark pBookmark = GetCorrespondBookmark(hItem);
-		m_pBookmarkOperation->DeleteBookmarkAndChild(pBookmark);
+		m_pArelleOperation->DeleteBookmarkAndChild(pBookmark);
 	}
 	this->Invalidate();
 }
@@ -137,11 +137,11 @@ void CMyTreeCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CTreeCtrl::OnLButtonDown(nFlags, point);
 
-	if (m_pBookmarkOperation != NULL)
+	if (m_pArelleOperation != NULL)
 	{
 		HTREEITEM hItem = this->GetSelectedItem();
 		FPD_Bookmark pBookmark = GetCorrespondBookmark(hItem);
-		m_pBookmarkOperation->GotoBookmarkDest(pBookmark);
+		m_pArelleOperation->GotoBookmarkDest(pBookmark);
 	}
 }
 
@@ -150,8 +150,8 @@ int  CMyTreeCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if(-1 == CTreeCtrl::OnCreate(lpCreateStruct))
 		return -1;
 	
-	m_pBookmarkOperation = new Bookmark_Operation(this->m_hWnd);
-	m_pBookmarkOperation->InitBookMark(m_pDoc);
+	m_pArelleOperation = new Arelle_Operation(this->m_hWnd);
+	m_pArelleOperation->InitBookMark(m_pDoc);
 	return 0;
 	
 }
@@ -231,7 +231,7 @@ LRESULT CMyTreeCtrl::OnDeleteBookmark(WPARAM wParam, LPARAM lParam)
 	}
 
     //Remove data layer bookmark information
-	m_pBookmarkOperation->DestroyBookmark(hBookmark);
+	m_pArelleOperation->DestroyBookmark(hBookmark);
 
 	return 0;
 }

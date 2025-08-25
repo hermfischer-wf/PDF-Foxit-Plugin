@@ -38,7 +38,7 @@ protected:
 	afx_msg LRESULT OnDeleteBookmark(WPARAM wParam, LPARAM lParam);
 private:
 	FR_Document m_pDoc;
-	Bookmark_Operation* m_pBookmarkOperation;
+	Arelle_Operation* m_pArelleOperation;
 
 	std::map<FPD_Object, HTREEITEM> m_mapItemsObject;
 	std::map<HTREEITEM, FPD_Bookmark> m_mapItemsBookmark;
