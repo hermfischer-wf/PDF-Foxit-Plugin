@@ -100,7 +100,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy ".\InstallArelle.xml" "../../lib/plugins/InstallArelle.xml" 
-"..\..\Tools\PISignatureGen.exe" /sign "../../lib/plugins/BookmarkDemo.fpi" "..\..\Tools\frdpisdkey.txt"</Command>
+"..\..\Tools\PISignatureGen.exe" /sign "../../lib/plugins/ArelleDemo.fpi" "..\..\Tools\frdpisdkey.txt"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
